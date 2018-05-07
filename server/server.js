@@ -2,6 +2,7 @@ const express = require('express');
 const path = require('path'); 
 const cors = require('cors'); 
 const bodyParser = require('body-parser'); 
+var serveStatic = require('serve-static');
 
 
 
@@ -15,16 +16,14 @@ app.use(bodyParser.json());
 
 app.use(cors())
 
-'?'
+app.use('/',serveStatic(__dirname + "/dist"));
 
 // Import routes:
 const burgerController = require('./controllers/burger.js'); 
 app.use('/burger', burgerController); 
 
 
-app.get('/', (req, res) => {
-    res.send('Go away!');
-});
+
 
 const PORT = process.env.PORT || 3000; 
 
