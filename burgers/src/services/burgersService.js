@@ -8,5 +8,8 @@ export default {
     return Api().post('burger/add', {
       name:name
     })
+  },
+  eatBurger(id) {
+    return Api().put('burger/update/'+id)
   }
 }
