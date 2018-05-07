@@ -13,7 +13,7 @@ app.use(bodyParser.json());
 
 // Init cors 
 
-app.use(cors());/.?
+app.use(cors())
 
 '?'
 
