@@ -1,58 +1,25 @@
-
 const connection = require("./connection.js");
 
 const orm = {
-  selectAll: function(table) {
+  selectAll: params => query("SELECT * FROM ??", params),
 
-    return new Promise((resolve, reject) => {
+  insertOne: params =>
+    query("INSERT INTO ??(burger_name, devoured) VALUES (? ,?)", params),
 
-      const querytStr = "SELECT * FROM ??";
-
-      connection.query(querytStr, table, (err, result) => {
-        if (err) { 
-            reject(err);
-        } else {
-            resolve(result);
-        }
-
-      });
-    });
-  },
-
-  insertOne: function(table, name, state) {
-
-    return new Promise((resolve, reject) => {
-
-        const querytStr = "INSERT INTO ??(burger_name, devoured) VALUES (? ,?)";
-  
-        connection.query(querytStr, [table,name, state], (err, result) => {
-          if (err) { 
-              reject(err);
-          } else {
-              resolve(result);
-          }
-  
-        });
-      });
-      
-  },
-
-  updateOne: function(table, id, col, data) {
-    return new Promise((resolve, reject) => {
-
-        const querytStr = "UPDATE ?? SET ?? = ? WHERE id = ? ";
-  
-        connection.query(querytStr, [table, col, data, id ], (err, result) => {
-          if (err) { 
-              reject(err);
-          } else {
-              resolve(result);
-          }
-  
-        });
-      });
-  }
-
+  updateOne: params => query("UPDATE ?? SET ?? = ? WHERE id = ? ", params)
 };
+
+function query(querytStr, params) {
+  return new Promise((resolve, reject) => {
+    connection.query(querytStr, params, (err, result) => {
+      if (err) {
+        console.log(err);
+        reject(err);
+      } else {
+        resolve(result);
+      }
+    });
+  });
+}
 
 module.exports = orm;

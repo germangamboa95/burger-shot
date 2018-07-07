@@ -20,7 +20,7 @@ router.put('/update/:id', (req, res) => {
     const id = req.params.id;
     burger.updateBurger(id)
     .then(result => res.sendStatus(200))
-    .catch(err => res.sendStatus(500));
+    .catch(err => res.send(err));
 });
 
 
